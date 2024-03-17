@@ -5,13 +5,17 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home";
 import UserHome from "./pages/userHome";
+import MainNavbar from "./components/navbar";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />}></Route>
-      <Route path="/userHome" element={<UserHome/>}></Route>
-    </Routes>
+    <>
+      <MainNavbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/userHome" element={<UserHome/>}></Route>
+      </Routes>
+    </>
   );
 }
 
