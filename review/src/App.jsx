@@ -6,15 +6,18 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import UserHome from "./pages/userHome";
 import MainNavbar from "./components/navbar";
+import Footer from "./components/footer";
 
 function App() {
   return (
     <>
       <MainNavbar />
+      
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/userHome" element={<UserHome/>}></Route>
+        <Route path="/userHome" element={<UserHome />}></Route>
       </Routes>
+      <Footer />
     </>
   );
 }
