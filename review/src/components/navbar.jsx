@@ -1,5 +1,6 @@
 import { Navbar, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { signInwithGoogle } from "../auth/googleAuth";
 
 function MainNavbar() {
   const navList = (
@@ -14,7 +15,7 @@ function MainNavbar() {
       <div className="flex items-center justify-between text-blue-gray-900">
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div>
-          <Button variant="filled" className="">
+          <Button variant="filled" className="" onClick={signInwithGoogle}>
             <span>Log In</span>
           </Button>
         </div>
