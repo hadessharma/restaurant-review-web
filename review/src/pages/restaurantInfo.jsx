@@ -28,23 +28,24 @@ function StarIcon() {
 }
 
 function RestaurantInfo() {
-
-  const RestaurantInfo = {
-    id: "1",
-    image:
-      "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    restaurantName: "Momo",
-    description:
-      "The place is close to Barceloneta Beach and bus stop just 2 min bywalk and near to &quot;Naviglio&quot; where you can enjoy the main",
-  };
+  const restaurantInfo = [
+    {
+      id: "1",
+      image:
+        "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      restaurantName: "Momo",
+      description:
+        "The place is close to Barceloneta Beach and bus stop just 2 min bywalk and near to &quot;Naviglio&quot; where you can enjoy the main",
+    },
+  ];
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
 
-  const openEditModal = () => {
-    setEditedTitle(RestaurantInfo.restaurantName);
-    setEditedDescription(RestaurantInfo.description);
+  const openEditModal = (restaurantName, description) => {
+    setEditedTitle(restaurantName);
+    setEditedDescription(description);
     setEditModalOpen(true);
   };
 
@@ -63,19 +64,15 @@ function RestaurantInfo() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        {RestaurantName.map(
-          ({ image, restaurantName, description , id}, index) => (
-            <>
-              <RestaurantCard
-                key={id}
-                image={image}
-                restaurantName={restaurantName}
-                description={description}
-                openEditModal={openEditModal}
-              />
-            </>
-          )
-        )}
+        {restaurantInfo.map(({ image, restaurantName, description, id }) => (
+          <RestaurantCard
+            key={id}
+            image={image}
+            restaurantName={restaurantName}
+            description={description}
+            openEditModal={() => openEditModal(restaurantName, description)}
+          />
+        ))}
 
         <Modal isOpen={editModalOpen} onClose={closeEditModal}>
           <div className="text-xl font-bold mb-4">Edit Restaurant</div>
@@ -100,8 +97,12 @@ function RestaurantInfo() {
               />
             </div>
             <div className="flex w-max items-end gap-4">
-                <Button type="submit" size="sm">Save Changes</Button>
-                <Button onClick={closeEditModal} size="sm">Cancel</Button>
+              <Button type="submit" size="sm">
+                Save Changes
+              </Button>
+              <Button onClick={closeEditModal} size="sm">
+                Cancel
+              </Button>
             </div>
           </form>
         </Modal>
