@@ -64,9 +64,9 @@ function RestaurantInfo() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        {restaurantInfo.map(({ image, restaurantName, description, id }) => (
+        {restaurantInfo.map(({ image, restaurantName, description, id }, index) => (
           <RestaurantCard
-            key={id}
+            key={index}
             image={image}
             restaurantName={restaurantName}
             description={description}

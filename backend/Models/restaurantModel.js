@@ -31,6 +31,11 @@ const restaurantSchema = Schema({
     required: false,
     default: [],
   },
+  image: {
+    type: String,
+    required: true,
+    default: "",
+  },
   reviews: {
     type: [restaurantReviewsSchema],
     required: true,

@@ -33,7 +33,7 @@ export default function RestaurantCard({
   return (
     <>
       <Card className="mt-6 w-96" key={index}>
-        <CardHeader color="blue-gray" className="relative h-56">
+        <CardHeader color="blue-gray" className="relative h-56 ">
           <img src={image} alt="card-image" />
         </CardHeader>
         <CardBody>
@@ -48,7 +48,7 @@ export default function RestaurantCard({
             <StarIcon />
             <StarIcon />
           </div>
-          <Button onClick={openEditModal}>Edit</Button>
+          {openEditModal ? <Button onClick={openEditModal}>Edit</Button> : null}
         </CardBody>
       </Card>
     </>
