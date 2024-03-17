@@ -2,6 +2,7 @@ import { Button, Typography } from "@material-tailwind/react";
 
 import { getAllRestaurants } from "../functions/get";
 import { useEffect, useState } from "react";
+import RestaurantCard from "../components/cards/restaurantCard";
 
 function Home() {
   const [reviewsToDisplay, setreviewsToDisplay] = useState("");
