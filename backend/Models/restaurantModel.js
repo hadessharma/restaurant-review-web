@@ -14,7 +14,7 @@ const restaurantReviewsSchema = Schema({
     type: String,
     required: true,
   },
-  time: {},
+  timestamp: {},
 });
 
 const restaurantSchema = Schema({
