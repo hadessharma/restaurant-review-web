@@ -11,6 +11,8 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+import RestaurantCard from "../components/cards/restaurantCard";
+
 function StarIcon() {
   return (
     <svg
@@ -92,27 +94,19 @@ function RestaurantInfo() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        {RestaurantName.map(({ image, restaurantName, description }, index) => (
-          <Card className="mt-6 w-96" key={index}>
-            <CardHeader color="blue-gray" className="relative h-56">
-              <img src={image} alt="card-image" />
-            </CardHeader>
-            <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                {restaurantName}
-              </Typography>
-              <Typography>{description}</Typography>
-              <div className="5 flex items-center gap-0">
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarIcon />
-              </div>
-              <Button onClick={openEditModal}>Edit</Button>
-            </CardBody>
-          </Card>
-        ))}
+        {RestaurantName.map(
+          ({ image, restaurantName, description , id}, index) => (
+            <>
+              <RestaurantCard
+                key={id}
+                image={image}
+                restaurantName={restaurantName}
+                description={description}
+                openEditModal={openEditModal}
+              />
+            </>
+          )
+        )}
 
         <Modal isOpen={editModalOpen} onClose={closeEditModal}>
           <div className="text-xl font-bold mb-4">Edit Restaurant</div>
