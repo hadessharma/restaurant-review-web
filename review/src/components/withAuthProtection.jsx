@@ -4,26 +4,25 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const withAuthProtection = (UserHome) => {
   const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const auth = getAuth();
   const navigateTo = useNavigate();
 
   useEffect(() => {
     const authChange = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setIsLoading(false);
     });
 
-    return authChange;
-  }, [auth]);
+    // Check for authentication and redirect if necessary
+    if (!user) {
+      navigateTo("/");
+    }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  } else if (!user) {
-    return navigateTo("/");
-  }
+    return () => {
+      authChange();
+    };
+  }, [auth, navigateTo]); // Add navigateTo as a dependency
 
-  return <UserHome />;
+  return user ? <UserHome /> : null; // Conditionally render UserHome
 };
 
 export default withAuthProtection;

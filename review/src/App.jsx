@@ -16,10 +16,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/userHome" component={withAuthProtection(UserHome)} />
-        {/*
-          <Route path="/userHome" element={<UserHome />}></Route>
-        */}
+        {/*<Route path="/userHome" element={withAuthProtection(UserHome)} />*/}
+        <Route path="/userHome" element={withAuthProtection(UserHome)} />
       </Routes>
       <Footer />
     </>
