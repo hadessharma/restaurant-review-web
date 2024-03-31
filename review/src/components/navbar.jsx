@@ -1,26 +1,34 @@
-import { Navbar, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { signInwithGoogle } from "../auth/googleAuth";
-
+import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { logout } from "../auth/firebase";
 
-import { useNavigate } from "react-router-dom";
+import { signInwithGoogle } from "../auth/googleAuth";
+import { logout } from "../auth/firebase";
+import NewReviewModal from "../components/modals/newReview";
+
+import { Navbar, Typography, Button } from "@material-tailwind/react";
 
 function MainNavbar() {
   const [user, setUser] = useState();
   const auth = getAuth();
+  const [isOpenNewReview, setIsOpenNewReview] = useState(false);
 
   const navigate = useNavigate();
 
   const handleOnClickReviews = () => {
     navigate("/userHome");
   };
+
+  const openModalNewReview = () => {
+    setIsOpenNewReview(!isOpenNewReview);
+  };
+
   useEffect(() => {
     const authChange = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        // console.log(user.displayName);
       } else {
         setUser(null);
         console.log("No user.");
@@ -46,6 +54,11 @@ function MainNavbar() {
   );
   return (
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <NewReviewModal
+        isOpen={isOpenNewReview}
+        openModal={openModalNewReview}
+        userName={user ? user.displayName : ""}
+      />
       <div className="flex items-center justify-between text-blue-gray-900">
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div>
@@ -61,11 +74,11 @@ function MainNavbar() {
               <Button
                 className="px-4"
                 variant="text"
-                onClick={console.log("Clicked!")}
+                onClick={openModalNewReview}
               >
                 Add Review
               </Button>
-              <Button className="px-4" variant="text" onClick={logout}>
+              <Button className="px-4" variant="filled" onClick={logout}>
                 Log Out
               </Button>
             </div>

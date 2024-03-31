@@ -4,7 +4,6 @@ import { getAllRestaurants } from "../functions/get";
 import { useEffect, useState } from "react";
 import RestaurantCard from "../components/cards/restaurantCard";
 
-import RestaurantCard from "../components/cards/restaurantCard";
 function Home() {
   const [reviewsToDisplay, setreviewsToDisplay] = useState("");
   const data = [
@@ -23,7 +22,7 @@ function Home() {
       try {
         const result = await getAllRestaurants();
         setreviewsToDisplay(result.data.data);
-        console.log(result.data.data);
+        // console.log(result.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -41,7 +40,7 @@ function Home() {
         }}
       >
         <div className="flex justify-center">
-          <Typography variant="h3" className="">
+          <Typography variant="h3" className="" color="white">
             World's Best Review Site. Log In to review restaurants in your area
             or around the world.
           </Typography>
