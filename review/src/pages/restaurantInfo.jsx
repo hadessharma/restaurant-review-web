@@ -1,12 +1,9 @@
-import { useReducer, useState } from "react";
-import React from "react";
-
+import { useState } from "react";
 import Modal from "../components/Modal";
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
   Button,
 } from "@material-tailwind/react";
@@ -30,23 +27,8 @@ function StarIcon() {
   );
 }
 
-function formReducer(state, action) {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value },
-        },
-      };
-    default:
-      return state;
-  }
-}
-
 function RestaurantInfo() {
-  const RestaurantName = [
+  const restaurantInfo = [
     {
       id: "1",
       image:
@@ -58,18 +40,12 @@ function RestaurantInfo() {
   ];
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
-      title: {
-        value: "",
-      },
-      description: {
-        value: "",
-      },
-    },
-  });
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedDescription, setEditedDescription] = useState("");
 
-  const openEditModal = () => {
+  const openEditModal = (restaurantName, description) => {
+    setEditedTitle(restaurantName);
+    setEditedDescription(description);
     setEditModalOpen(true);
   };
 
@@ -79,34 +55,24 @@ function RestaurantInfo() {
 
   const handleEditSubmit = (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    // Handle form submission
+    console.log("Title:", editedTitle);
+    console.log("Description:", editedDescription);
     closeEditModal();
-  };
-
-  const inputHandler = (event, id) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: event.target.value,
-      inputId: id,
-    });
   };
 
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        {RestaurantName.map(
-          ({ image, restaurantName, description , id}, index) => (
-            <>
-              <RestaurantCard
-                key={id}
-                image={image}
-                restaurantName={restaurantName}
-                description={description}
-                openEditModal={openEditModal}
-              />
-            </>
-          )
-        )}
+        {restaurantInfo.map(({ image, restaurantName, description, id }, index) => (
+          <RestaurantCard
+            key={index}
+            image={image}
+            restaurantName={restaurantName}
+            description={description}
+            openEditModal={() => openEditModal(restaurantName, description)}
+          />
+        ))}
 
         <Modal isOpen={editModalOpen} onClose={closeEditModal}>
           <div className="text-xl font-bold mb-4">Edit Restaurant</div>
@@ -116,8 +82,8 @@ function RestaurantInfo() {
               <input
                 type="text"
                 id="title"
-                value={formState.inputs.title.value}
-                onChange={(event) => inputHandler(event, "title")}
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
                 className="border rounded-md px-2 py-1"
               />
             </div>
@@ -125,13 +91,19 @@ function RestaurantInfo() {
               <label htmlFor="description">Description:</label>
               <textarea
                 id="description"
-                value={formState.inputs.description.value}
-                onChange={(event) => inputHandler(event, "description")}
+                value={editedDescription}
+                onChange={(e) => setEditedDescription(e.target.value)}
                 className="border rounded-md px-2 py-1"
               />
             </div>
-            <Button type="submit">Save Changes</Button>
-            <Button onClick={closeEditModal}>Cancel</Button>
+            <div className="flex w-max items-end gap-4">
+              <Button type="submit" size="sm">
+                Save Changes
+              </Button>
+              <Button onClick={closeEditModal} size="sm">
+                Cancel
+              </Button>
+            </div>
           </form>
         </Modal>
       </div>

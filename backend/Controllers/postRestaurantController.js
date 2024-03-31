@@ -3,29 +3,29 @@ const Restaurant = require("../Models/restaurantModel");
 
 const postRestaurant = async (req, res) => {
   try {
-    const { name, address, cousines, user, rating, comment, timestamp } =
+    const { user, name, address, cousines, rating, comment, timestamp } =
       req.body;
     const restaurant = await Restaurant.findOne({ name: name });
 
     if (restaurant) {
-        const newAvg =
-          (restaurant.avgRating * restaurant.totalReviews + rating) /
-          (restaurant.totalReviews + 1);
-        const doc = await Restaurant.findOneAndUpdate(
-          { name: name },
-          {
-            $push: {
-              reviews: {
-                user: user,
-                rating: rating,
-                comment: comment,
-                timestamp: timestamp,
-              },
+      const newAvg =
+        (restaurant.avgRating * restaurant.totalReviews + rating) /
+        (restaurant.totalReviews + 1);
+      const doc = await Restaurant.findOneAndUpdate(
+        { name: name },
+        {
+          $push: {
+            reviews: {
+              user: user,
+              rating: rating,
+              comment: comment,
+              timestamp: timestamp,
             },
-            $inc: { totalReviews: 1 },
-            $set: { avgRating: newAvg },
-          }
-        );
+          },
+          $inc: { totalReviews: 1 },
+          $set: { avgRating: newAvg },
+        }
+      );
     } else {
       const newRestaurant = new Restaurant({
         name: name,
