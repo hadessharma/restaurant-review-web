@@ -37,7 +37,7 @@ export default function RestaurantCard({
   }
   return (
     <>
-      <Card className="mt-6 w-96" key={index}>
+      <Card className="px-2 py-2 mt-6 w-64" key={index}>
         <CardHeader color="blue-gray" className="relative h-56 ">
           <img src={image} alt="card-image" />
         </CardHeader>

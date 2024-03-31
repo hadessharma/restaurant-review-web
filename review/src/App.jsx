@@ -19,7 +19,7 @@ function App() {
         {/*<Route path="/userHome" element={withAuthProtection(UserHome)} />*/}
         <Route path="/userHome" element={withAuthProtection(UserHome)} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
