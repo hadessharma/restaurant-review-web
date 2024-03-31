@@ -7,15 +7,19 @@ import Home from "./pages/home";
 import UserHome from "./pages/userHome";
 import MainNavbar from "./components/navbar";
 import Footer from "./components/footer";
+import withAuthProtection from "./components/withAuthProtection";
 
 function App() {
   return (
     <>
       <MainNavbar />
-      
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/userHome" element={<UserHome />}></Route>
+        <Route path="/userHome" component={withAuthProtection(UserHome)} />
+        {/*
+          <Route path="/userHome" element={<UserHome />}></Route>
+        */}
       </Routes>
       <Footer />
     </>
