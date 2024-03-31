@@ -6,23 +6,13 @@ import RestaurantCard from "../components/cards/restaurantCard";
 
 function Home() {
   const [reviewsToDisplay, setreviewsToDisplay] = useState("");
-  const data = [
-    {
-      imageLink: "https://source.unsplash.com/random",
-    },
-    {
-      imageLink:
-        "https://source.unsplash.com/cooked-food-on-black-bowl-ZuIDLSz3XLg",
-    },
-    { imageLink: "https://source.unsplash.com/raspberry-cake-Mzy-OjtCI70" },
-  ];
 
   useEffect(() => {
     const getData = async () => {
       try {
         const result = await getAllRestaurants();
         setreviewsToDisplay(result.data.data);
-        // console.log(result.data.data);
+        console.log(result.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -54,6 +44,7 @@ function Home() {
                 restaurantName={item.name}
                 description={item.reviews[0].comment}
                 openEditModal={null}
+                totalReviews = {item.avgRating}
               />
             ))}
           </div>

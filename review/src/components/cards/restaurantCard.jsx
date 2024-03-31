@@ -29,7 +29,12 @@ export default function RestaurantCard({
   restaurantName,
   description,
   openEditModal,
+  totalReviews,
 }) {
+  const stars = [];
+  for (let i = 0; i < totalReviews; i++) {
+    stars.push(<StarIcon key={i} />);
+  }
   return (
     <>
       <Card className="mt-6 w-96" key={index}>
@@ -41,13 +46,7 @@ export default function RestaurantCard({
             {restaurantName}
           </Typography>
           <Typography>{description}</Typography>
-          <div className="5 flex items-center gap-0">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-          </div>
+          <div className="5 flex items-center gap-0">{stars}</div>
           {openEditModal ? <Button onClick={openEditModal}>Edit</Button> : null}
         </CardBody>
       </Card>
