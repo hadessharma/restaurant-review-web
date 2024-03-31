@@ -27,18 +27,18 @@ function StarIcon() {
   );
 }
 
-function RestaurantInfo() {
-  const restaurantInfo = [
-    {
-      id: "1",
-      image:
-        "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      restaurantName: "Momo",
-      description:
-        "The place is close to Barceloneta Beach and bus stop just 2 min bywalk and near to &quot;Naviglio&quot; where you can enjoy the main",
-    },
-  ];
-
+function RestaurantInfo(props) {
+  // const restaurantInfo = [
+  //   {
+  //     id: "1",
+  //     image:
+  //       "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+  //     restaurantName: "Momo",
+  //     description:
+  //       "The place is close to Barceloneta Beach and bus stop just 2 min bywalk and near to &quot;Naviglio&quot; where you can enjoy the main",
+  //   },
+  // ];
+  
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
@@ -64,15 +64,13 @@ function RestaurantInfo() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        {restaurantInfo.map(({ image, restaurantName, description, id }, index) => (
           <RestaurantCard
-            key={index}
-            image={image}
-            restaurantName={restaurantName}
-            description={description}
-            openEditModal={() => openEditModal(restaurantName, description)}
+            key={props.key}
+            //image={image}
+            restaurantName={props.restaurantName}
+            description={props.description}
+            openEditModal={() => openEditModal(props.restaurantName, props.description)}
           />
-        ))}
 
         <Modal isOpen={editModalOpen} onClose={closeEditModal}>
           <div className="text-xl font-bold mb-4">Edit Restaurant</div>

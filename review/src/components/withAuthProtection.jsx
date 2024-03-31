@@ -22,7 +22,7 @@ const withAuthProtection = (UserHome) => {
     };
   }, [auth, navigateTo]); // Add navigateTo as a dependency
 
-  return user ? <UserHome /> : null; // Conditionally render UserHome
+  return user ? <UserHome user={user}/> : null; // Conditionally render UserHome
 };
 
 export default withAuthProtection;

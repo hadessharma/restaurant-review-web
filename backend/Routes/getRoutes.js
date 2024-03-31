@@ -3,11 +3,11 @@ const router = express.Router();
 
 const {
   getAllRestaurant,
-  getAllUser,
+  getUserRestaurants,
 } = require("../Controllers/getController");
 
 
 router.get("/reviewList", [], getAllRestaurant);
-router.get("/userreviewList", [], getAllUser);
+router.get("/userReviewList", [], getUserRestaurants);
 
 module.exports = router;

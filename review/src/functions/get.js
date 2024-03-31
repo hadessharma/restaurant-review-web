@@ -5,3 +5,13 @@ export const getAllRestaurants = async () => {
 //   console.log(res);
   return res;
 };
+
+export const getUserRestaurants = async (currUser) => {
+  const res = await axios.get("http://localhost:8080/api/get/userReviewList",{
+    params:{
+      currUser:currUser
+    }
+  });
+//   console.log(res);
+  return res;
+};
