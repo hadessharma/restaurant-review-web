@@ -48,6 +48,7 @@ function MainNavbar() {
       authChange();
     };
   }, [auth, dispatch]);
+
   const navList = (
     <>
       <ul className="mt-2 mb-2 flex flex-col lg:mb-0 lg:flex-row lg:items-center lg:gap-6">
@@ -68,11 +69,11 @@ function MainNavbar() {
         <NewReviewModal
           isOpen={isOpenNewReview}
           openModal={openModalNewReview}
-          userName={loggedInUser ? loggedInUser.displayName : ""}
+          userName={loggedInUser.userName ? loggedInUser.userName : ""}
         />
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div>
-          {loggedInUser ? (
+          {loggedInUser.userName ? (
             <div className="">
               <Button
                 className="px-4"
