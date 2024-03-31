@@ -35,7 +35,9 @@ function Home() {
     <>
       <div
         className="bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(https://source.unsplash.com/cooked-food-on-black-bowl-ZuIDLSz3XLg)` }}
+        style={{
+          backgroundImage: `url(https://source.unsplash.com/cooked-food-on-black-bowl-ZuIDLSz3XLg)`,
+        }}
       >
         <div className="flex justify-center">
           <Typography variant="h3" className="">

@@ -26,16 +26,23 @@ function MainNavbar() {
         console.log("No user.");
       }
     });
-    return ()=>{
+    return () => {
       authChange();
-    }
+    };
   }, [auth]);
   const navList = (
-    <ul className="mt-2 mb-2 flex flex-col lg:mb-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography as="li" variant="small" color="blue-gray">
-        <Link to="/">REVIEW!!🤑</Link>
-      </Typography>
-    </ul>
+    <>
+      <ul className="mt-2 mb-2 flex flex-col lg:mb-0 lg:flex-row lg:items-center lg:gap-6">
+        <Typography as="li" variant="small" color="blue-gray">
+          <Link to="/">REVIEW!!🤑</Link>
+        </Typography>
+      </ul>
+      {/* <ul className="flex items-center justify-between text-blue-gray-900">
+        <Typography as="li" variant="small" color="blue-gray">
+          <Link to=""
+        </Typography>
+      </ul> */}
+    </>
   );
   return (
     <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
@@ -43,9 +50,24 @@ function MainNavbar() {
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div>
           {user ? (
-            <div>
-              <Button onClick={handleOnClickReviews}>Your Reviews</Button>
-              <Button onClick={logout}>Log Out</Button>
+            <div className="">
+              <Button
+                className="px-4"
+                variant="text"
+                onClick={handleOnClickReviews}
+              >
+                Your Reviews
+              </Button>
+              <Button
+                className="px-4"
+                variant="text"
+                onClick={console.log("Clicked!")}
+              >
+                Add Review
+              </Button>
+              <Button className="px-4" variant="text" onClick={logout}>
+                Log Out
+              </Button>
             </div>
           ) : (
             <Button variant="filled" className="" onClick={signInwithGoogle}>
