@@ -4,7 +4,7 @@ const getAll = async (req, res) => {
   try {
     Restaurant.aggregate([
       {
-        $sample: { size: 2 },
+        $sample: { size: 10 },
       },
     ])
       .then((randomRecords) => {

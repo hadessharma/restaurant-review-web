@@ -1,24 +1,27 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userReviewsSchema = Schema(
+const reviewSchema = Schema(
   {
-    restaurant: {
-      type: String,
-      required: true,
-    },
     rating: {
       type: Number,
       required: true,
     },
-    comments: {
-      type: [String],
+    comment: {
+      type: String,
       required: true,
-      default: [],
     },
   },
   { timestamps: true }
 );
+
+const userReviewsSchema = Schema({
+  restaurant: {
+    type: String,
+    required: true,
+  },
+  review: { type: [reviewSchema], required: true },
+});
 
 const userSchema = Schema({
   username: {
@@ -26,7 +29,7 @@ const userSchema = Schema({
     required: true,
   },
   reviews: {
-    type: [userReviewSchema],
+    type: [userReviewsSchema],
     required: true,
     default: [],
   },
