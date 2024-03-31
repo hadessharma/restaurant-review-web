@@ -9,7 +9,7 @@ const postRestaurant = async (req, res) => {
 
     if (restaurant) {
       const newAvg =
-        (restaurant.avgRating * restaurant.totalReviews + rating) /
+        (restaurant.avgRating * restaurant.totalReviews + parseInt(rating)) /
         (restaurant.totalReviews + 1);
       const doc = await Restaurant.findOneAndUpdate(
         { name: name },

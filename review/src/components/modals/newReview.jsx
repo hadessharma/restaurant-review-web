@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { postRestaurants } from "../../functions/post";
+import { postRestaurants, postUsers } from "../../functions/post";
 
 import {
   Dialog,
@@ -15,21 +15,26 @@ import {
 export default function NewReviewModal({ isOpen, openModal, userName }) {
   if (!isOpen) return null;
 
-  const [name, setName] = useState("");
+  const [restaurantName, setName] = useState(""); //name of the restaurant
   const [address, setAddress] = useState("");
   const [cousines, setCousines] = useState("");
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
 
-  const handleNewReview = () => {
+  const handleNewReview = async () => {
     const now = Date();
-    postRestaurants(userName, {
-      name: name,
+    await postRestaurants(userName, {
+      name: restaurantName,
       address: address,
       cousines: cousines,
       rating: rating,
       comment: comment,
       timestamp: now,
+    });
+    await postUsers(userName, {
+      restaurant: restaurantName,
+      rating: rating,
+      comment: comment,
     });
     setName("");
     setAddress("");
@@ -48,7 +53,7 @@ export default function NewReviewModal({ isOpen, openModal, userName }) {
             <div className="w-[80%]">
               <Input
                 label="Restaurant Name"
-                value={name}
+                value={restaurantName}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
