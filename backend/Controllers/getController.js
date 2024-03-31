@@ -1,6 +1,7 @@
 const Restaurant = require("../Models/restaurantModel");
+const User = require("../Models/userModel");
 
-const getAll = async (req, res) => {
+const getAllRestaurant = async (req, res) => {
   try {
     Restaurant.aggregate([
       {
@@ -22,4 +23,26 @@ const getAll = async (req, res) => {
   }
 };
 
-module.exports = { getAll };
+const getAllUser = async (req, res) => {
+  try {
+    User.aggregate([
+      {
+        $sample: { size: 10 },
+      },
+    ])
+      .then((randomRecords) => {
+        return res
+          .status(200)
+          .json({ data: randomRecords, msg: "Successfull!" });
+      })
+      .catch((error) => {
+        console.log(error);
+        return res.status(201).json({ data: "", msg: "Failed!" });
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(201).json();
+  }
+};
+
+module.exports = { getAllRestaurant, getAllUser };

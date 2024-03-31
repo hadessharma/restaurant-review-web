@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAll } = require("../Controllers/getController");
-router.get("/reviewList", [], getAll);
+const {
+  getAllRestaurant,
+  getAllUser,
+} = require("../Controllers/getController");
+
+
+router.get("/reviewList", [], getAllRestaurant);
+router.get("/userreviewList", [], getAllUser);
 
 module.exports = router;
