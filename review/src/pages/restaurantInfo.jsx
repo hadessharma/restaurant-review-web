@@ -65,7 +65,7 @@ function RestaurantInfo(props) {
     <>
       <div className="flex justify-center items-center h-screen">
           <RestaurantCard
-            key={props.key}
+            key={props.id}
             //image={image}
             restaurantName={props.restaurantName}
             description={props.description}

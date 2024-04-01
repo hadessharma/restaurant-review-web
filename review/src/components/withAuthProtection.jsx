@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logIn, logOut } from "../reduxStore/functions/userReducer";
 
 const withAuthProtection = (UserHome) => {
-  const [user, setUser] = useState();
-  const auth = getAuth();
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    const authChange = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-
-    // Check for authentication and redirect if necessary
-    if (!user) {
+    if (!loggedInUser) {
       navigateTo("/");
     }
-
-    return () => {
-      authChange();
-    };
-  }, [auth, navigateTo]); // Add navigateTo as a dependency
-
-  return user ? <UserHome user={user}/> : null; // Conditionally render UserHome
+  }, [navigateTo]); // Add navigateTo as a dependency
+  console.log(loggedInUser.userName)
+  return loggedInUser.userName ? <UserHome user={loggedInUser.userName}/> : null; // Conditionally render UserHome
 };
 
 export default withAuthProtection;
