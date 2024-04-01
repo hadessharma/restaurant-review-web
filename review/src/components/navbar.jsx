@@ -2,14 +2,19 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signInwithGoogle } from "../auth/googleAuth";
 import { logout } from "../auth/firebase";
 import NewReviewModal from "../components/modals/newReview";
+import { logIn, logOut } from "../reduxStore/functions/userReducer";
 
 import { Navbar, Typography, Button } from "@material-tailwind/react";
 
 function MainNavbar() {
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
+
   const [user, setUser] = useState();
   const auth = getAuth();
   const [isOpenNewReview, setIsOpenNewReview] = useState(false);
@@ -28,16 +33,22 @@ function MainNavbar() {
     const authChange = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        // console.log(user.displayName);
+        dispatch(
+          logIn({
+            userName: user.displayName,
+            email: user.email,
+          })
+        );
       } else {
         setUser(null);
-        console.log("No user.");
+        dispatch(logOut());
       }
     });
     return () => {
       authChange();
     };
-  }, [auth]);
+  }, [auth, dispatch]);
+
   const navList = (
     <>
       <ul className="mt-2 mb-2 flex flex-col lg:mb-0 lg:flex-row lg:items-center lg:gap-6">
@@ -58,11 +69,11 @@ function MainNavbar() {
         <NewReviewModal
           isOpen={isOpenNewReview}
           openModal={openModalNewReview}
-          userName={user ? user.displayName : ""}
+          userName={loggedInUser.userName ? loggedInUser.userName : ""}
         />
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div>
-          {user ? (
+          {loggedInUser.userName ? (
             <div className="">
               <Button
                 className="px-4"

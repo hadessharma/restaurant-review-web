@@ -20,6 +20,7 @@ export default function NewReviewModal({ isOpen, openModal, userName }) {
   const [cousines, setCousines] = useState("");
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
+  const [img, setImg] = useState("");
 
   const handleNewReview = async () => {
     const now = Date();
@@ -81,6 +82,13 @@ export default function NewReviewModal({ isOpen, openModal, userName }) {
             <div className="w-[80%]">
               <Input
                 label="Comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
+            <div className="w-[80%]">
+              <Input
+                label="img"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
